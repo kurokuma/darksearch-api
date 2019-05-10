@@ -14,7 +14,7 @@ ds = DarkSearch()
 result = ds.search(query="dreammarket")
 print(result)
 
-# ex page=3
+# ex max_page=3
 # get pages 1~3
 result = ds.searchs(query="dreammarket", max_page=3)
 print(result)
