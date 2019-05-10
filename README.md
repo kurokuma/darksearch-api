@@ -1,5 +1,5 @@
 # darksearch-api
-darksearch.io python wrapper api
+https://darksearch.io/apidoc
 
 
 ```py
