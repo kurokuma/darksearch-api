@@ -40,6 +40,8 @@ class DarkSearchAPIBase(object):
 
     MAX_PAGE = 30
 
+    PATH = None
+
     def __init__(self):
         pass
     
@@ -52,8 +54,7 @@ class DarkSearchAPIBase(object):
             "query": str(query),
             "page": int(page)
         }
-        _path = "search"
-        r = requests.get(url=self.BASE_URL + _path, params=params, headers=self.BASE_HEADER)
+        r = requests.get(url=self.BASE_URL + self.PATH, params=params, headers=self.BASE_HEADER)
         if r.status_code == 200:
             r.encoding = r.apparent_encoding
             try:
