@@ -7,5 +7,5 @@ ds = DarkSearch()
 result = ds.search(query="dreammarket")
 print(result)
 
-# result = ds.searchs(query="dreammarket", max_page=3)
+# result = ds.searches(query="dreammarket", max_page=3)
 # print(result)

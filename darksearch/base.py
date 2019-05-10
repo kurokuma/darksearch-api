@@ -69,7 +69,7 @@ class DarkSearchAPIBase(object):
                 header=r.headers
             )
     
-    def searchs(self, query, max_page=MAX_PAGE):
+    def searches(self, query, max_page=MAX_PAGE):
         """
         query: search keyword(string)
         max_page: 1~max_page(int) default max_page 30
