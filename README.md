@@ -16,7 +16,7 @@ print(result)
 
 # ex max_page=3
 # get pages 1~3
-result = ds.searchs(query="dreammarket", max_page=3)
+result = ds.searches(query="dreammarket", max_page=3)
 print(result)
 ```
 
