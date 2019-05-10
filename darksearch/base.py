@@ -59,8 +59,8 @@ class DarkSearchAPIBase(object):
             r.encoding = r.apparent_encoding
             try:
                 return r.json()
-            except UnicodeEncodeError:
-                return r.text
+            except UnicodeEncodeError as e:
+                print(e)
         else:
             ds_ex = self.EXCEPTION.get(r.status_code, DarkSearchException)
             raise ds_ex(
