@@ -30,16 +30,14 @@ class DarkSearchRateLimitException(DarkSearchException):
 class DarkSearchAPIBase(object):
     BASE_URL = "https://darksearch.io/api/"
     BASE_HEADER = {
-        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36",
+        "User-Agent": "DarkSearch Python API",
         "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
     }
-
     EXCEPTION = {
         429: DarkSearchRateLimitException
     }
-
+    PROXIES = None
     MAX_PAGE = 30
-
     PATH = None
 
     def __init__(self):
@@ -54,7 +52,20 @@ class DarkSearchAPIBase(object):
             "query": str(query),
             "page": int(page)
         }
-        r = requests.get(url=self.BASE_URL + self.PATH, params=params, headers=self.BASE_HEADER)
+        if self.PROXIES is None:
+            r = requests.get(
+                url=self.BASE_URL + self.PATH, 
+                params=params, 
+                headers=self.BASE_HEADER
+            )
+        else:
+            r = requests.get(
+                url=self.BASE_URL + self.PATH, 
+                params=params, 
+                headers=self.BASE_HEADER,
+                proxies=self.PROXIES
+            )
+
         if r.status_code == 200:
             r.encoding = r.apparent_encoding
             try:
@@ -75,6 +86,24 @@ class DarkSearchAPIBase(object):
         max_page: 1~max_page(int) default max_page 30
         """
         res = []
-        for page in range(1, max_page+1):
-            res.append(self.search(query=query, page=page))
-        return res
+        if max_page <= self.MAX_PAGE:
+            for page in range(1, max_page+1):
+                res.append(self.search(query=query, page=page))
+            return res
+        else:
+            ds_ex = DarkSearchRateLimitException
+            raise ds_ex(
+                status_code="",
+                url="",
+                header=""
+            )
+    
+    def set_proxy(self, proto, ip, port):
+        """Set Proxy
+        proto: ex)http or https..(string)
+        ip: ipaddress or (string)
+        port: port number(int or string)
+        """
+        self.PROXIES = {
+            proto: "{proto}://{ip}:{port}".format(proto=proto, ip=ip, port=str(port))
+        }
