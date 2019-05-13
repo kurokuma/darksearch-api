@@ -9,6 +9,9 @@ from darksearch.darksearch import DarkSearch
 
 ds = DarkSearch()
 
+# set proxy
+# ds.set_proxy("http", "160.16.69.219", 80)
+
 # ex
 # get page 1
 result = ds.search(query="dreammarket")
