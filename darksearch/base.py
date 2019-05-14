@@ -149,6 +149,6 @@ class DarkSearchAPIBase(object):
         res = []
         for row in json_data["data"]:
             res.append(
-                [row["title"], row["link"], row["description"]]
+                [row["description"], row["title"], row["link"]]
             )
         return res
