@@ -36,6 +36,14 @@ ds = DarkSearch()
 # Demo
 
 ```
-> python3 demo.py
-{'last_page': 8, 'total': 143, 'per_page': 20, 'to': 20, 'data': [{'description': '#\n\n  * Start\n  * Bli medlem\n  * Logga in\n  * Till Flugsvamp (market)\n\nDu är inte inloggad.\n\n  * Start\n  * » DM, WallSt och andra marknader\n  * » ketamin på <em>dreammarket</em>\n\nSidor: 1\n\n## #1 2019-03-11 08:46:33\n\nmega\n\n    Medlem +\n    Registrerad: 2019-03-11\n    Inlägg: 123\n\n### ketamin på <em>dreammarket</em>', 'title': 'ketamin på dreammarket (sida 1) / DM, WallSt och andra marknader / Flugforum', 'link': 'http://flugforumt6eave4.onion/viewtopic.php?pid=6905#p6905'}, {'description': ...., 'from': 1, 'current_page': 1}
+Data Response
+- raw_json
+{'last_page': last_page, 'total': total, 'per_page': per_page, 'to': to, 'data': [{'description': 'description', 'title': 'title', 'link': 'url'}, {'description': ...., 'from': from, 'current_page': current_page}
+
+- json
+[{'description': 'description', 'title': 'title', 'link': 'url'}, {'description': ....,]
+
+- csv
+[['description', 'title', 'url'], [.....]]
+
 ```
