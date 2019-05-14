@@ -27,6 +27,12 @@ class DarkSearchRateLimitException(DarkSearchException):
     Afin d'éviter toute surcharge, notre API est limitée à 30 requêtes par minute.
     """
 
+class DarkSearchHTTPNotFoundException(DarkSearchException):
+    pass
+    """
+    404 Not Found xD
+    """
+
 class DarkSearchAPIBase(object):
     BASE_URL = "https://darksearch.io/api/"
     BASE_HEADER = {
@@ -34,7 +40,8 @@ class DarkSearchAPIBase(object):
         "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
     }
     EXCEPTION = {
-        429: DarkSearchRateLimitException
+        429: DarkSearchRateLimitException,
+        404: DarkSearchHTTPNotFoundException
     }
     PROXIES = None
     MAX_PAGE = 30
