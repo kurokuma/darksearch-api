@@ -11,7 +11,7 @@ from darksearch.darksearch import DarkSearch
 
 ds = DarkSearch()
 
-# ds.set_proxy("http", "160.16.69.219", 80)
+# ds.set_proxy("http", "ipaddress", port)
 
 # result = ds.search(query="dreammarket", page=9, data_type="raw_json")
 # result = ds.search(query="dreammarket", page=1, data_type="json")
