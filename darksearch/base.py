@@ -50,10 +50,10 @@ class DarkSearchAPIBase(object):
     def __init__(self):
         pass
     
-    def search(self, query, data_type="json", page=1):
+    def search(self, query, data_type="raw_json", page=1):
         """
         query: search keyworkd(string)
-        data_type: data type(string) 
+        data_type: data type default raw_json(string) 
                    raw_json: add meta data(lage_page, to, total..,)
                    json: remove metadata from raw_json
                    csv: json convert json to csv
@@ -86,7 +86,9 @@ class DarkSearchAPIBase(object):
                     return r.json()["data"]
                 elif data_type == "csv":
                     return self._json2csv(r.json())
-
+                else:
+                    print("Set Return Data Type!")
+                    exit()
             except Exception as e:
                 print(e)
         else:
@@ -97,16 +99,36 @@ class DarkSearchAPIBase(object):
                 header=r.headers
             )
     
-    def searches(self, query, max_page=MAX_PAGE):
+    def searches(self, query, data_type="raw_json", start_page=1, max_page=MAX_PAGE):
         """
         query: search keyword(string)
+        data_type: data type default raw_json(string) 
+                   raw_json: add meta data(lage_page, to, total..,)
+                   json: remove metadata from raw_json
+                   csv: json convert json to csv
+        start_page: start page number default page 1(int)
         max_page: 1~max_page(int) default max_page 30
         """
         res = []
         if max_page <= self.MAX_PAGE:
-            for page in range(1, max_page+1):
-                res.append(self.search(query=query, page=page))
-            return res
+            # for page in range(1, max_page+1):
+            #     res.append(self.search(query=query, page=page))
+            # return res
+            while True:
+                page = start_page
+                json_data = self.search(query=query, data_type=data_type, page=page)
+                last_page = json_data["last_page"]
+
+                if data_type == "raw_json":
+                    res.append(json_data)
+                elif data_type == "json":
+                    res.extend(json_data)
+                elif data_type == "csv":
+                    res.extend(self._json2csv(json_data))
+
+                if page > last_page or page == max_page:
+                    break
+                page += 1
         else:
             ds_ex = DarkSearchRateLimitException
             raise ds_ex(
