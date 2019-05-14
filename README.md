@@ -21,7 +21,6 @@ ds = DarkSearch()
 # result = ds.searches(query="dreammarket", data_type="raw_json", start_page=1, max_page=2)
 # result = ds.searches(query="dreammarket", data_type="json", start_page=1, max_page=2)
 # result = ds.searches(query="dreammarket", data_type="csv", start_page=1, max_page=2)
-
 # print(result)
 
 ```
@@ -33,10 +32,9 @@ ds = DarkSearch()
 > sudo pip3 install requests
 ```
 
-# Demo
+# Data Response
 
 ```
-Data Response
 - raw_json
 {'last_page': last_page, 'total': total, 'per_page': per_page, 'to': to, 'data': [{'description': 'description', 'title': 'title', 'link': 'url'}, {'description': ...., 'from': from, 'current_page': current_page}
 
