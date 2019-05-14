@@ -111,12 +111,9 @@ class DarkSearchAPIBase(object):
         """
         res = []
         if max_page <= self.MAX_PAGE:
-            # for page in range(1, max_page+1):
-            #     res.append(self.search(query=query, page=page))
-            # return res
+            page = start_page
             while True:
-                page = start_page
-                json_data = self.search(query=query, data_type=data_type, page=page)
+                json_data = self.search(query=query, data_type="raw_json", page=page)
                 last_page = json_data["last_page"]
 
                 if data_type == "raw_json":
@@ -126,9 +123,10 @@ class DarkSearchAPIBase(object):
                 elif data_type == "csv":
                     res.extend(self._json2csv(json_data))
 
-                if page > last_page or page == max_page:
+                if page >= last_page or page == max_page:
                     break
                 page += 1
+            return res
         else:
             ds_ex = DarkSearchRateLimitException
             raise ds_ex(

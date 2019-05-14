@@ -13,6 +13,6 @@ ds = DarkSearch()
 
 # result = ds.searches(query="dreammarket", data_type="raw_json", start_page=1, max_page=2)
 # result = ds.searches(query="dreammarket", data_type="json", start_page=1, max_page=2)
-# result = ds.searches(query="dreammarket", data_type="csv", start_page=1, max_page=2)
+result = ds.searches(query="dreammarket", data_type="csv", start_page=1, max_page=2)
 
-# print(result)
+print(result)
