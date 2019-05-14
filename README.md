@@ -4,9 +4,6 @@ https://darksearch.io/apidoc
 
 ```py
 # -*- coding: utf-8 -*-
-
-# -*- coding: utf-8 -*-
-
 from darksearch.darksearch import DarkSearch
 
 ds = DarkSearch()
