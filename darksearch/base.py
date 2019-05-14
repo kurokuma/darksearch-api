@@ -50,9 +50,13 @@ class DarkSearchAPIBase(object):
     def __init__(self):
         pass
     
-    def search(self, query, page=1):
+    def search(self, query, data_type="json", page=1):
         """
         query: search keyworkd(string)
+        data_type: data type(string) 
+                   raw_json: add meta data(lage_page, to, total..,)
+                   json: remove metadata from raw_json
+                   csv: json convert json to csv
         page: page number(int) default page 1
         """
         params = {
@@ -76,7 +80,13 @@ class DarkSearchAPIBase(object):
         if r.status_code == 200:
             r.encoding = r.apparent_encoding
             try:
-                return r.json()
+                if data_type == "raw_json":
+                    return r.json()
+                elif data_type == "json":
+                    return r.json()["data"]
+                elif data_type == "csv":
+                    return self._json2csv(r.json())
+
             except Exception as e:
                 print(e)
         else:
@@ -114,3 +124,11 @@ class DarkSearchAPIBase(object):
         self.PROXIES = {
             proto: "{proto}://{ip}:{port}".format(proto=proto, ip=ip, port=str(port))
         }
+    
+    def _json2csv(self, json_data):
+        res = []
+        for row in json_data["data"]:
+            res.append(
+                [row["title"], row["link"], row["description"]]
+            )
+        return res
